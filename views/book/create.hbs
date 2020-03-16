@@ -1,0 +1,28 @@
+<form action="/books/create" method="POST">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input class="form-control" type="text" name="title" placeholder="title">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input class="form-control" type="text" name="description" placeholder="description">
+    </div>
+    <div class="form-group">
+        <label for="image_url">Image url</label>
+        <input class="form-control" type="text" name="image_url" placeholder="image_url">
+    </div>
+    <div class="form-group">
+        <label for="rating">Rating</label>
+        <input class="form-control" type="text" name="rating" placeholder="rating">
+    </div>
+    <div class="form-group">
+        <label for="author">Author</label>
+        <select name="author">
+            {{#each authorsHbs}}
+                <option value="{{_id}}">{{firstName}} {{lastName}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <button type="submit btn btn-primary">Submit</button>
+</form>

@@ -19,10 +19,10 @@ app.get("/create", (req, res)=> {
     Author
         .find()
         .then((authors)=> {
-            res.render("book/create", {authorsHbs: authors});
+            res.render("book/create.hbs", {authorsHbs: authors});
         })
         .catch((err)=> {
-            res.send("error")
+            res.send("error");
         })
 })
 
@@ -36,7 +36,7 @@ app.post("/create", (req, res)=> {
             author: req.body.author 
         })
         .then((book)=> {
-            res.send("ok")
+            res.send("ok");
         })
 })
 

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
+require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: false }))
 
 const hbs = require('hbs');
@@ -20,10 +21,10 @@ app.use(session({
   }));
 
 app.use(middleWareExample2); 
-app.use("/books", protect); // the protect middleware is only called if requests have a path that starts with '/path'
+// app.use("/books", protect); // the protect middleware is only called if requests have a path that starts with '/path'
 
 app.set("view engine", "hbs");
-mongoose.connect("mongodb://localhost/library", { 
+mongoose.connect(process.env.db, { 
         useNewUrlParser: true,  
         useUnifiedTopology: true 
     })
@@ -48,6 +49,10 @@ function middleWareExample2(req,res,next){
 app.use("/books", require("./routes/books")); // all routes in ./routes/books will have "/books" prepended to their path
 app.use("/user", require("./routes/user"));
 
-app.listen(3000, ()=> {
-    console.log("Express is listening on", 3000);
+app.use((err, req, res, next)=> {
+    res.render("error.hbs", {message: err});
+})
+
+app.listen(process.env.PORT, ()=> {
+    console.log("Express is listening on", process.env.PORT);
 })

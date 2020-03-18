@@ -3,15 +3,15 @@ const app = express();
 const Book = require("../models/Book");
 const Author = require("../models/Author");
 
-app.get("/", (req, res)=> {
+app.get("/", (req, res, next)=> {
     Book
-        .find()
+        .find("asdfsdaf")
         .populate("author") // this is new
         .then((books)=> {
             res.render("book/books.hbs", {booksHbs: books});
         })
         .catch((err)=> {
-            console.log(err);
+            next("database error");
         })
 })
 
@@ -26,7 +26,7 @@ app.get("/create", (req, res)=> {
         })
 })
 
-app.post("/create", (req, res)=> {
+app.post("/create", (req, res, next)=> {
     Book
         .create({
             title: req.body.title,
@@ -37,6 +37,9 @@ app.post("/create", (req, res)=> {
         })
         .then((book)=> {
             res.send("ok");
+        })
+        .catch((err)=> {
+            next(err.message);
         })
 })
 

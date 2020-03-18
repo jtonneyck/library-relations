@@ -4,7 +4,10 @@ const BookModel = mongoose.model("books", {
     image_url: String,
     title: String,
     rating: Number,
-    description: String,
+    description: {
+        type: String,
+        required: true
+    },
     author: {
         type: mongoose.Types.ObjectId,
         ref: "authors"
